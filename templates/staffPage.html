@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block body %}
+    <ul class="events" method="post">
+        <h1>This is the staff page</h1>
+        {% for event in events %}
+            <li>{{ event.event_name }}</li>
+            <a href="{{ url_for('sign_up', event=event.event_name) }}">sign up</a>
+        {% else %}
+            <li>No events so far...</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

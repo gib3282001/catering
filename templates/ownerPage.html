@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block body %}
+<a href="{{ url_for('create_new_staff_acc') }}" class="metanav">create new staff account</a>
+<h1>Events</h1>
+<ul class="events">
+    {% for event in events %}
+        <li><h2>{{ event.event_name }}</h2>
+            Staff:
+            <br>
+            {% for staff in event.members %}
+                {{ staff.username }}
+                <br>
+            {% endfor %}
+    {% else %}
+        <li>No events so far...
+    {% endfor %}
+</ul>
+{% endblock %}
