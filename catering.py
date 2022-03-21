@@ -88,7 +88,8 @@ def create_new_staff_acc():
 @app.route('/staff')
 def show_staff_page():
 	events = Event.query.order_by(Event.event_id.desc()).all()
-	return render_template('staffPage.html', events=events)
+	currStaff = Staff.query.filter_by(staff_id=session['staff_id']).first()
+	return render_template('staffPage.html', events=events, currStaff=currStaff)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -109,13 +110,16 @@ def register():
 
 @app.route('/welcome', methods=['GET', 'POST'])
 def show_customer_page():
-	return render_template('customerPage.html')
+	events = Event.query.order_by(Event.event_id.desc()).all()
+	user = Customer.query.filter_by(customer_id=session['customer_id']).first()
+	return render_template('customerPage.html', events=events, user=user)
 
 @app.route('/add', methods=['POST'])
 def add_event():
 	if not session.get('logged_in'):
 		abort(401)
-	new = Event(request.form['name'])
+	user = Customer.query.filter_by(customer_id=session['customer_id']).first()
+	new = Event(request.form['name'], user.customer_id)
 	db.session.add(new)
 	db.session.commit()
 	return redirect(url_for('show_customer_page'))

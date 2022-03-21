@@ -5,9 +5,11 @@ db = SQLAlchemy()
 class Event(db.Model):
     event_id = db.Column(db.Integer, primary_key=True)
     event_name = db.Column(db.Text, nullable=False)
+    poster_id = db.Column(db.Integer, db.ForeignKey('customer.customer_id'))
 
-    def __init__(self, name):
+    def __init__(self, name, poster_id):
         self.event_name = name
+        self.poster_id = poster_id
 
     def __repr__(self):
         return '<Event {}>'.format(self.event_id)
@@ -33,6 +35,7 @@ class Customer(db.Model):
     customer_id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), nullable=False)
     password = db.Column(db.String(80), nullable=False)
+    events = db.relationship('Event', backref='poster')
 
     def __init__(self, username, pw):
         self.username = username

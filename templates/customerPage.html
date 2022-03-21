@@ -1,10 +1,16 @@
 {% extends 'base.html' %}
 {% block body %}
+<form action="{{ url_for('add_event') }}" method="post" class="add-entry">
+    <dt>Event Name:
+    <dd><input type="text" size="30" name="name">
+    <dd><input type="submit" value="Done">
+</form>
 <ul class="events">
-    <form action="{{ url_for('add_event') }}" method="post" class="add-entry">
-        <dt>Event Name:
-        <dd><input type="text" size="30" name="name">
-        <dd><input type="submit" value="Done">
-    </form>
+    <h1>Your Events:</h1>
+    {% for event in events %}
+        {% if event.poster.username == user.username %}
+            <li><h2>{{ event.event_name }}</h2>
+        {% endif %}
+    {% endfor %}
 </ul>
 {% endblock %}
