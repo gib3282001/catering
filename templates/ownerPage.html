@@ -5,6 +5,8 @@
 <ul class="events">
     {% for event in events %}
         <li><h2>{{ event.event_name }}</h2>
+            Date: {{event.date.date()}}
+            <br>
             Staff:
             <br>
             {% for staff in event.members %}

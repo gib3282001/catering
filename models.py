@@ -6,10 +6,12 @@ class Event(db.Model):
     event_id = db.Column(db.Integer, primary_key=True)
     event_name = db.Column(db.Text, nullable=False)
     poster_id = db.Column(db.Integer, db.ForeignKey('customer.customer_id'))
+    date = db.Column(db.DateTime, nullable=False)
 
-    def __init__(self, name, poster_id):
+    def __init__(self, name, poster_id, date):
         self.event_name = name
         self.poster_id = poster_id
+        self.date = date
 
     def __repr__(self):
         return '<Event {}>'.format(self.event_id)

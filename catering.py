@@ -1,6 +1,6 @@
 from distutils.debug import DEBUG
 import os
-from datetime import datetime
+import datetime
 from flask import Flask, request, session, url_for, redirect, render_template, abort, g, flash, _app_ctx_stack
 from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -119,8 +119,27 @@ def add_event():
 	if not session.get('logged_in'):
 		abort(401)
 	user = Customer.query.filter_by(customer_id=session['customer_id']).first()
-	new = Event(request.form['name'], user.customer_id)
+	d = request.form['date']
+	year = int(d[0:4])
+	month = int(d[5:7])
+	day = int(d[8:10])
+	date = datetime.date(year, month, day)
+	events = Event.query.order_by(Event.event_id.desc()).all()
+	new = Event(request.form['name'], user.customer_id, date)
+	for event in events:
+		if new.date == event.date:
+			flash('There is already an event set for that date')
+			return redirect(url_for('show_customer_page'))
 	db.session.add(new)
+	db.session.commit()
+	return redirect(url_for('show_customer_page'))
+
+@app.route('/delete/<event>', methods=['GET'])
+def delete(event):
+	if not session.get('logged_in'):
+		abort(401)
+	e = Event.query.filter_by(event_name=event).first()
+	db.session.delete(e)
 	db.session.commit()
 	return redirect(url_for('show_customer_page'))
 

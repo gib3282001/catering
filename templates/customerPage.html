@@ -3,6 +3,7 @@
 <form action="{{ url_for('add_event') }}" method="post" class="add-entry">
     <dt>Event Name:
     <dd><input type="text" size="30" name="name">
+    <dd><input type="date" name="date">
     <dd><input type="submit" value="Done">
 </form>
 <ul class="events">
@@ -10,6 +11,8 @@
     {% for event in events %}
         {% if event.poster.username == user.username %}
             <li><h2>{{ event.event_name }}</h2>
+            <li>Date: {{ event.date.date() }}
+            <a href="{{ url_for('delete', event=event.event_name) }}">Cancel</a>
         {% endif %}
     {% endfor %}
 </ul>

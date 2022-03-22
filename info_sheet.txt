@@ -16,25 +16,23 @@ Assignment #:  2
 
 Program due date:  3/22/2022
 
-Handed in date:  
+Handed in date:  3/22/2022
 
 Source code file name(s):
-
-
-
-
-
+catering.py
 
 
 Other file name(s) (if relevant):
+models.py
+base.html
+createStaffAccount.html
+customerPage.html
+login.html
+ownerPage.html
+register.html
+staffPage.html
 
-
-
-
-
-
-
-Does your project run without error?:
+Does your project run without error?:yes
 
 If not, what is/are the error(s) and which parts of your program run
 correctly?:
@@ -46,7 +44,7 @@ correctly?:
 
 
 Additional comments to the grader:
-
+Logout link will always be located in the top right corner of the page
 
 
 

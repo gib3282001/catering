@@ -6,13 +6,12 @@
             {% if event.members |length < 3 %}
                 {% if currStaff not in event.members %}
                     <li><h2>{{ event.event_name }}</h2>
+                    <li>Date: {{event.date.date()}}
                     <a href="{{ url_for('sign_up', event=event.event_name) }}">sign up</a>
                 {% endif %}
-            {% else %}
-                <li>No events for you to work at</li>
             {% endif %}
         {% else %}
-            <li>No events so far...</li>
+            <li>No available events :/</li>
         {% endfor %}
         <br>
         <h1>Your Events:</h1>
